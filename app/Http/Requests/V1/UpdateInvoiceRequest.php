@@ -26,17 +26,15 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function rules()
     {
-
         $method=$this->method();
         if($method=='PUT'){
         return [
-            'name'=>['required'],
-            'type'=>['required',Rule::in(['I','B','i','b'])],
-            'email'=>['required','email'],
-            'address'=>['required'],
-            'city'=>['required'],
-            'state'=>['required'],
-            'postalCode'=>['required'],
+            'customerId'=>['required'],
+            'amount'=>['required','email'],
+            'status'=>['required'],
+            'billedDate'=>['required'],
+            'paidDate'=>['required'],
+        
         ];
     }
 
@@ -44,21 +42,39 @@ class UpdateCustomerRequest extends FormRequest
     else{ //for patch the property is gonna be there sometimes (if the property is there then its going to be validated according to the required or the next rule)
 
         return [
-            'name'=>['sometimes','required'],
-            'type'=>['sometimes','required',Rule::in(['I','B','i','b'])],
-            'email'=>['sometimes','required','email'],
-            'address'=>['sometimes','required'],
-            'city'=>['sometimes','required'],
-            'state'=>['sometimes','required'],
-            'postalCode'=>['sometimes','required'],
+            'customerId'=>['sometimes','required'],
+            'amount'=>['sometimes','required','email'],
+            'status'=>['sometimes','required'],
+            'billedDate'=>['sometimes','required'],
+            'paidDate'=>['sometimes','required'],
+        
         ];
     }
 
     }
 
+   
+
+
     protected function prepareForValidation(){
-if($this->postalCode){
-        $this->merge(['postal_code'=>$this->postalCode]);
+if($this->customerId){
+        $this->merge([
+            'customer_id'=>$this->customerId
+    ]);
+    }
+
+    if($this->billedDate){
+        $this->merge([
+           
+            'billed_date'=>$this->billedDate
+           
+    ]);
+    }
+
+    if($this->paidDate){
+        $this->merge([
+            'paid_date'=>$this->paidDate
+    ]);
     }
 }
 }

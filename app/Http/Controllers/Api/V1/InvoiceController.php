@@ -6,10 +6,10 @@ use App\Models\Invoice;
 use Illuminate\Http\Request;
 use App\Filters\V1\InvoicesFilter;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Resources\V1\InvoiceResource;
-use App\Http\Requests\UpdateInvoiceRequest;
 use App\Http\Resources\V1\InvoiceCollection;
+use App\Http\Requests\V1\StoreInvoiceRequest;
+use App\Http\Requests\V1\UpdateInvoiceRequest;
 
 class InvoiceController extends Controller
 {
@@ -31,26 +31,17 @@ class InvoiceController extends Controller
             return new InvoiceCollection($invoices->appends($request->query()));
         }
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
+   
     /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreInvoiceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(StoreInvoiceRequest $request)
-    // {
-    //     //
-    // }
+    public function store(StoreInvoiceRequest $request)
+    {
+        return new InvoiceResource(Invoice::create($request->all()));
+    }
 
     /**
      * Display the specified resource.
@@ -63,17 +54,7 @@ class InvoiceController extends Controller
         return new InvoiceResource($invoice);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Invoice $invoice)
-    {
-        //
-    }
-
+  
     /**
      * Update the specified resource in storage.
      *
@@ -81,10 +62,10 @@ class InvoiceController extends Controller
      * @param  \App\Models\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    // public function update(UpdateInvoiceRequest $request, Invoice $invoice)
-    // {
-    //     //
-    // }
+    public function update(UpdateInvoiceRequest $request, Invoice $invoice)
+    {
+        $invoice->update($request->all());
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -94,6 +75,10 @@ class InvoiceController extends Controller
      */
     public function destroy(Invoice $invoice)
     {
-        //
+    if($invoice)
+       $invoice->delete(); 
+    else
+        return response()->json("invoice doesnt exist");
+    return response()->json(null); 
     }
 }

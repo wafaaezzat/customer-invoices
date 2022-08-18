@@ -21,38 +21,39 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/setup', function () {
-   $credintials=[
-    'email'=>'admin@icloud.com',
-    'password'=>'password'
-   ];
+// Route::get('/setup', function () {
+//    $credintials=[
+//     'email'=>'admin@icloud.com',
+//     'password'=>'password'
+//    ];
 
 
-   if(!Auth::attempt($credintials)){
-    $user=new User();
-    $user->name='Admin';
-    $user->email=$credintials['email'];
-    $user->password=Hash::make($credintials['password']);
+//    if(!Auth::attempt($credintials)){
+//     $user=new User();
+//     $user->name='Admin';
+//     $user->role=1;
+//     $user->email=$credintials['email'];
+//     $user->password=Hash::make($credintials['password']);
 
-    $user->save();
-   }
+//     $user->save();
+//    }
 
 
 
-   if(Auth::attempt($credintials)){
+//    if(Auth::attempt($credintials)){
 
-    $user=Auth::user();
-    $adminToken=$user->createToken('admin-token',['create','update','delete']);
-    $updateToken=$user->createToken('update-token',['create','update']); 
-    $basicToken=$user->createToken('basic-token');
+//     $user=Auth::user();
+//     $adminToken=$user->createToken('admin-token',['create','update','delete']);
+//     $updateToken=$user->createToken('update-token',['create','update']); 
+//     $basicToken=$user->createToken('basic-token',['none']);
     
 
-    return[
-        'admin'=>$adminToken->plainTextToken,
-        'update'=>$updateToken->plainTextToken,
-        'basic'=>$basicToken->plainTextToken
-    ];
+//     return[
+//         'admin'=>$adminToken->plainTextToken,
+//         'update'=>$updateToken->plainTextToken,
+//         'basic'=>$basicToken->plainTextToken
+//     ];
 
 
-   }
-});
+//    }
+// });

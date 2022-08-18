@@ -5,7 +5,7 @@ namespace App\Http\Requests\V1;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreCustomerRequest extends FormRequest
+class StoreInvoiceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,14 +27,13 @@ class StoreCustomerRequest extends FormRequest
     public function rules()
     {
         return [
-           
-            'name'=>['required'],
-            'type'=>['required',Rule::in(['I','B','i','b'])],
-            'email'=>['required','email'],
-            'address'=>['required'],
-            'city'=>['required'],
-            'state'=>['required'],
-            'postalCode'=>['required'],
+
+            'customerId'=>['required'],
+            'amount'=>['required','email'],
+            'status'=>['required'],
+            'billedDate'=>['required'],
+            'paidDate'=>['required'],
+        
         ];
       
     }
@@ -42,7 +41,11 @@ class StoreCustomerRequest extends FormRequest
 
     protected function prepareForValidation(){
 
-        $this->merge(['postal_code'=>$this->postalCode]);
+        $this->merge([
+            'customer_id'=>$this->customerId,
+            'billed_date'=>$this->billedDate,
+            'paid_date'=>$this->paidDate
+    ]);
     }
    
 
