@@ -47,10 +47,10 @@ class InvoiceController extends Controller
      * @param  \App\Http\Requests\StoreInvoiceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreInvoiceRequest $request)
-    {
-        //
-    }
+    // public function store(StoreInvoiceRequest $request)
+    // {
+    //     //
+    // }
 
     /**
      * Display the specified resource.
@@ -81,10 +81,10 @@ class InvoiceController extends Controller
      * @param  \App\Models\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateInvoiceRequest $request, Invoice $invoice)
-    {
-        //
-    }
+    // public function update(UpdateInvoiceRequest $request, Invoice $invoice)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
